@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  neo4j:
+    build:
+      context: ../database/
+      dockerfile: Dockerfile
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - ../database/data:/data
+    environment:
+      - NEO4J_AUTH=neo4j/PassWord1234!
+
+  frontend:
+    build:
+      context: ../frontend/
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    # depends_on:
+    #   - neo4j
